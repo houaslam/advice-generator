@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+	<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+	<link rel="stylesheet" href="./style.css">
+	
+	<title>Frontend Mentor | Advice generator app</title>
+</head>
+<body>
+
+	<main class="canva">
+		<div class="advicer">
+			<p>
+				ADVICE  #<span id="id"></span>
+			</p>
+
+			<q id="advice">
+			</q>
+
+			<img id="stop" src="images/pattern-divider-desktop.svg">
+
+			<button id="shuffleButton">
+				<img src="images/icon-dice.svg">
+			</button>
+		</div>
+	</main>
+
+	<script type="module">
+
+
+		let holder = document.getElementById("advice")
+		let id = document.getElementById("id")
+		let shuffle = document.getElementById("shuffleButton")
+
+		shuffle.addEventListener("click", async (e)=>{
+			e.preventDefault()
+			let jsonAdvice = await fetch("https://api.adviceslip.com/advice")
+			let advice = await jsonAdvice.json()
+			holder.innerHTML = advice.slip.advice
+			id.innerHTML = advice.slip.id
+		})
+	</script>
+</body>
+</html>
